@@ -32,6 +32,18 @@ int
 init_me_a_window_pretty_please(
 	unsigned char do_you_want_opengl_in_it);
 
+float 
+myballs(
+	);
+
+void
+eachofmyballs(
+	float* theballs);
+
+void
+suckmedry(
+	float* assix);
+
 #define head while(XPending(d) > 0)
 #define shoulder { XNextEvent(d, &e);
 #define knees if(XFilterEvent(&e, 0L)) {

@@ -75,3 +75,39 @@ init_me_a_window_pretty_please(
 
 	return APP_IS_FIIINE;
 }
+
+float 
+myballs(
+	)
+{
+	unsigned int a, b;
+	Window tmpRoot; unsigned int tmpUnsignedInt; int tmpInt;
+	XGetGeometry(d, w, &tmpRoot, &tmpInt, &tmpInt, &a, &b, &tmpUnsignedInt, &tmpUnsignedInt);
+	return (float)a/(float)b;
+}
+
+
+void
+eachofmyballs(
+	float* theballs)
+{
+	unsigned int a, b;
+	Window tmpRoot; unsigned int tmpUnsignedInt; int tmpInt;
+	XGetGeometry(d, w, &tmpRoot, &tmpInt, &tmpInt, &a, &b, &tmpUnsignedInt, &tmpUnsignedInt);
+	theballs[0] = a;
+	theballs[1] = b;
+}
+
+
+void
+suckmedry(
+	float* assix)
+{
+	int a, b;
+
+	int tmpInt; Window tmpRoot, tmpWin;
+	XQueryPointer(d, w, &tmpRoot, &tmpWin, &tmpInt, &tmpInt, &a, &b, (unsigned int*)&tmpInt);
+
+	assix[0] = a;
+	assix[1] = b;
+}

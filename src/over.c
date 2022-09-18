@@ -1,4 +1,5 @@
 #include <openglussy🤤.h>
+#include <initmeawindowpls.h>
 #include <stdio.h>
 
 INIT_MY_BALLS(GL_FUNC_INIT)
@@ -17,11 +18,11 @@ layout (location = 1) in vec3 a_Color;\n\
 \n\
 out vec4 v_Color;\n\
 \n\
-uniform vec2 u_Offset;\n\
-uniform vec2 u_Aspect;\n\
+uniform mat4 u_Proj;\n\
+uniform mat4 u_Tran;\n\
 \n\
 void main() {\n\
-\tgl_Position = vec4(a_Position * vec3(u_Aspect, 1.0f) + vec3(u_Offset, 0.0f), 1.0f);\n\
+\tgl_Position = u_Proj * u_Tran * vec4(a_Position, 1.0f);\n\
 \tv_Color = vec4(a_Color, 1.0f);\n\
 }\n";
 
@@ -98,8 +99,5 @@ void
 cum_render(
 	)
 {
-	cum_glUniform2f(cum_glGetUniformLocation(shaderID, "u_Offset"), 0.1, 0.1);
-	cum_glUniform2f(cum_glGetUniformLocation(shaderID, "u_Aspect"), 1.0f/(16.0/9.0), 1.0f);
-
 	cum_glDrawArrays(GL_TRIANGLES, 0, 3);
 }

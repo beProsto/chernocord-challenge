@@ -1,6 +1,6 @@
 CC=gcc
 
-FuC=src/code.c src/engineering.c src/over.c src/bad.c
+FuC=src/over.c src/engineering.c src/your.c src/code.c src/is.c src/bad.c
 
 UnFuC=build/app
 
