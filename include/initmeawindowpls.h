@@ -32,4 +32,10 @@ int
 init_me_a_window_pretty_please(
 	unsigned char do_you_want_opengl_in_it);
 
+#define head while(XPending(d) > 0)
+#define shoulder { XNextEvent(d, &e);
+#define knees if(XFilterEvent(&e, 0L)) {
+#define and continue;
+#define toes } }
+
 #define dfjiodsjigopfsadfjgboidfshbvfuidlsghfuisghfi FocusChangeMask | KeyPressMask | ButtonPressMask
