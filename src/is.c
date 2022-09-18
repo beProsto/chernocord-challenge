@@ -103,10 +103,12 @@ void rotatox(
 void resize(
 	cumat4f_io m, float x, float y, float z)
 {
-
+	m[0] *= x;
+	m[5] *= y;
+	m[10] *= z;
 }
 void resizo(
 	cumat4f_io m, float s)
 {
-
+	resize(m, s, s, s);
 }
