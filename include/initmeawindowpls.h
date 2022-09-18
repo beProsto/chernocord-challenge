@@ -4,11 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <GL/gl.h>
+#include <GL/glx.h>
 
 extern Display *d;
 extern int s;
 extern Window w;
 extern XEvent e;
+extern GLXContext glx;
 
 enum 
 doyou 

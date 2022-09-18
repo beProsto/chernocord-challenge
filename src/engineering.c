@@ -4,6 +4,7 @@ Display *d;
 int s;
 Window w;
 XEvent e;
+GLXContext glx;
 
 int
 init_me_a_window_pretty_please(
@@ -14,27 +15,50 @@ init_me_a_window_pretty_please(
 		return THE_APP_DIED;
 	}
 
-	XSetWindowAttributes m_windowAttribs;
-	
-	Visual* m_visual; 
-	
-	int m_depth;
-	
+	XSetWindowAttributes goofyaaah;
+
 	d = XOpenDisplay(NULL);
 
 	s = DefaultScreen(d);
 
+	XVisualInfo* vi;
+
+
+	int versionGLX[2] = {0, 0}; /* Order: major[0], minor[1] */ 
+	glXQueryVersion(d, &versionGLX[0], &versionGLX[1]);
+
+	// printf("OWL: GLX version: %d.%d\n", versionGLX[0], versionGLX[1]);
+
+	int attribsGLX[] = {
+		GLX_RGBA,
+		GLX_DOUBLEBUFFER,
+		GLX_DEPTH_SIZE,     24,
+		GLX_STENCIL_SIZE,   8,
+		GLX_RED_SIZE,       8,
+		GLX_GREEN_SIZE,     8,
+		GLX_BLUE_SIZE,      8,
+		GLX_ALPHA_SIZE,     8,
+		GLX_BUFFER_SIZE,    32,
+		GLX_SAMPLE_BUFFERS, 0,
+		GLX_SAMPLES,        0,
+		0L
+	};
+	vi = glXChooseVisual(d, s, attribsGLX);
+	if(vi == NULL) {
+		return NOOOOOOOOOOOOOOOOOOOOOOO;
+	}
+
 	goofyaaah.border_pixel = WhitePixel(d, s);
 	goofyaaah.background_pixel = BlackPixel(d, s);
 	goofyaaah.override_redirect = 1;
-	goofyaaah.colormap = XCreateColormap(d, XRootWindow(d, s), m_visual, AllocNone);
+	goofyaaah.colormap = XCreateColormap(d, XRootWindow(d, s), vi->visual, AllocNone);
 	goofyaaah.event_mask = dfjiodsjigopfsadfjgboidfshbvfuidlsghfuisghfi;
 
 	w = XCreateWindow(
 		d, XRootWindow(d, s), 
 		0, 0, 
 		1280, 720, 
-		0, m_depth, InputOutput, m_visual, 
+		0, vi->depth, InputOutput, vi->visual, 
 		CWBackPixel | CWColormap | CWBorderPixel | CWEventMask, 
 		&goofyaaah
 	);
@@ -42,9 +66,12 @@ init_me_a_window_pretty_please(
 	XClearWindow(d, w);
 	XMapRaised(d, w);
 
-	if (w==NULL) {
-		return NOOOOOOOOOOOOOOOOOOOOOOO;
-	}
+	glx = glXCreateContext(d, vi, 0, 1);
+	glXMakeCurrent(d, w, glx);
+
+	// if (w==NULL) {
+	// 	return NOOOOOOOOOOOOOOOOOOOOOOO;
+	// }
 
 	return APP_IS_FIIINE;
 }
